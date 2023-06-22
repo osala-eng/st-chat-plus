@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_chat import message
+from streamlit_chat_plus import message
 import requests
 
 st.set_page_config(

@@ -74,8 +74,10 @@ const ChatUI: React.FC<ComponentProps> = (props) => {
           options={{
             overrides: extLinks ? {
               a: { component: 'a', props: { target: "_blank" } }
-            } : undefined
+            } : undefined,
+
           }}
+          
         >{message}</Markdown> :
          message 
       }
