@@ -1,0 +1,54 @@
+name: Build and release Pyhton package
+on:
+  workflow_call:
+    inputs:
+      env:
+        description: 'Environment name'
+        required: true
+        default: 'staging'
+        type: string
+
+# Jobs 
+jobs:
+  build-n-publish:
+    name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.env }}
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    # Setup python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
+
+    # Setup nodejs for building frontend
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: "16"
+        cache: "npm"
+
+    # Build frontend
+    - name: Build frontend
+      working-directory: streamlit_chat_plus/frontend
+      run: |
+        npm ci
+        npm run build
+
+    # Install python dependencies and build
+    - name: Install pypa/build and twine
+      working-directory: .
+      run: |
+        sed -i "s/RELEASE = False/RELEASE = True/g" streamlit_chat_plus/__init__.py
+        python3 -m pip install build twine --user
+        python3 -m build --sdist --wheel --outdir dist/ .
+
+    # Publish package to PyPI or TestPyPI
+    - name: Publish distribution 📦 to Test PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_TOKEN_KEY }}
+        repository-url: ${{ vars.REPO_URL }}

@@ -131,3 +131,11 @@ dmypy.json
 # frontend
 node_modules/
 .prettierrc
+
+
+#vscode
+.vscode/
+
+#build
+build/
+dist/
