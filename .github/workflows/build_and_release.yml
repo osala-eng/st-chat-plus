@@ -27,10 +27,8 @@ jobs:
     # Setup nodejs for building frontend
     - name: Setup node
       uses: actions/setup-node@v2
-      working-directory: streamlit_chat_plus/frontend
       with:
         node-version: "16"
-        cache: "npm"
 
     # Build frontend
     - name: Build frontend
