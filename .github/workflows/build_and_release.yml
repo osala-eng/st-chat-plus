@@ -6,6 +6,7 @@ on:
         description: 'Environment name'
         required: true
         default: 'staging'
+        type: string
 
 
 jobs:
@@ -13,7 +14,7 @@ jobs:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     runs-on: ubuntu-latest
     environment: ${{ inputs.env }}
-  steps:
+    steps:
     - name: Checkout the repository
       uses: actions/checkout@v3
 
