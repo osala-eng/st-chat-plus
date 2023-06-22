@@ -1,10 +1,6 @@
 name: Release | Build and publish Python 🐍 distributions 📦 to PyPI
 
 on:
-  push:
-    branches:
-      - main
-
   workflow_dispatch:
 
 jobs:
