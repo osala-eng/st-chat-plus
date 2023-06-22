@@ -1,0 +1,14 @@
+name: Staging | Build and publish Python 🐍 distributions 📦 to testPyPI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and release
+        uses: ./.github/workflows/build_and_release.yml
+        with:
+          env: staging
+          secrets: inherit
