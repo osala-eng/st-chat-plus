@@ -7,6 +7,7 @@ jobs:
   build-and-release:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Build and release
         uses: ./.github/workflows/build_and_release.yml
         with:
