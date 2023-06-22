@@ -1,7 +1,6 @@
 import streamlit.components.v1 as components
 import os
 from typing import Optional, Union
-from dataclasses import dataclass
 
 try:
     from typing import Literal
@@ -79,7 +78,7 @@ def message( message: str,
         if not avatar_style:
             avatar_style = "fun-emoji" if is_user else "bottts"
         _streamlit_chat(
-            message=msg,
+            message=message,
             seed=seed,
             isUser=is_user,
             avatarStyle=avatar_style,
@@ -97,10 +96,8 @@ if not _RELEASE:
     The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
     
-    msg = Message("Hello world!")
-    msg2 = Message("Hello what's up?", True)
-    message(msg)
-    message(msg2)
+    message("Hello world", True)
+    message(long_message)
     # message(Message(msg="Hey, what\'s up?"))
     # message(Message(msg=long_message))
     st.text_input("Message:")
