@@ -8,6 +8,12 @@ import React, { useEffect } from "react"
 import styled from '@emotion/styled'
 
 import Markdown from 'markdown-to-jsx'
+import hljs from "highlight.js"
+import "highlight.js/styles/base16/dracula.css"
+
+hljs.configure({
+  cssSelector: "pre code"
+})
 
 const Message = styled.div({
   display: 'inline-block',
@@ -37,7 +43,7 @@ const ChatMessage = styled.div({
 
 
 const ChatUI: React.FC<ComponentProps> = (props) => {
-  const { isUser, avatarStyle, seed, message, logo } = props.args;
+  const { isUser, avatarStyle, seed, message, logo, allowHTML, extLinks } = props.args;
   const avatarUrl = !!logo ? logo : `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
   const { theme } = props
 
@@ -50,13 +56,30 @@ const ChatUI: React.FC<ComponentProps> = (props) => {
     background: theme?.secondaryBackgroundColor,
   }
 
+  const mdFormat = allowHTML || false
+
   useEffect(() => {
     Streamlit.setFrameHeight()
   }, [])
 
+  useEffect(() => {
+    hljs.highlightAll()
+  })
+
   return <ChatMessage style={chatStyle}>
     <Avatar src={avatarUrl} />
-    <Message style={messageStyle}>{message}</Message>
+    <Message style={messageStyle}>
+      {mdFormat ?
+        <Markdown
+          options={{
+            overrides: extLinks ? {
+              a: { component: 'a', props: { target: "_blank" } }
+            } : undefined
+          }}
+        >{message}</Markdown> :
+         message 
+      }
+    </Message>
   </ChatMessage>
 }
 

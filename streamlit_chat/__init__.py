@@ -59,7 +59,7 @@ def message( message: str,
             seed: Optional[Union[int, str]] = 88,
             key: Optional[str] = None,
             allow_html: Optional[bool] = False,
-            open_links_externally: Optional[bool] = False):
+            open_links_externally: Optional[bool] = True):
     """
     _summary_: A message to be displayed in the chatbot
 
@@ -86,6 +86,33 @@ def message( message: str,
             allowHTML = allow_html,
             extLinks = open_links_externally
         )
+markdown = """
+#### Sample md
+- list 1
+- list 2
+
+> Data
+> Done
+
+"""
+
+links = """
+#### Links internal
+[Click Me](https:/google.com)
+https://google.com
+"""
+
+links_ext = """
+#### code sample
+
+```python
+import streamlit as st
+
+with st.container():
+    st.write("Hello world!")
+    st.markdown('*Data*')
+```
+"""
 
 
 if not _RELEASE:
@@ -98,6 +125,7 @@ if not _RELEASE:
     
     message("Hello world", True)
     message(long_message)
-    # message(Message(msg="Hey, what\'s up?"))
-    # message(Message(msg=long_message))
+    message(markdown, allow_html=True)
+    message(links_ext, allow_html=True)
+    message(links, allow_html=True)
     st.text_input("Message:")
