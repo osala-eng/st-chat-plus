@@ -146,6 +146,27 @@ with st.container():
 </audio>
 
 
+### Typescript code
+Here's a sample Typescript code to create a server using the Express framework:
+
+```ts
+import express from 'express';
+
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});
+```
+In this code, we import the `express` module and create an instance of it using `const app = express()`. We then define a route for the root URL (/) using `app.get('/', ...)`, and send a response with the text `"Hello World!"` using `res.send('Hello World!')`.
+
+Finally, we start the server listening on port 3000 using `app.listen(port, ...)`, and log a message to the console to confirm that the server is running.
+
 Visit [Streamlit](https://streamlit.io) for more info.
 <br>
 """
