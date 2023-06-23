@@ -78,14 +78,25 @@ const ChatUI: React.FC<ComponentProps> = (props) => {
 
   // Copy code to clipboard
   useEffect(() => {
-    if (messageRef.current) {
-      const codes = messageRef.current.getElementsByTagName('code')
+    if (messageRef.current && window.isSecureContext) {
+      const codes = messageRef.current.getElementsByTagName('pre')
         for(let pre = 0; pre < codes.length; pre++) {
-          const button = document.createElement('button')
-          button.innerHTML = '📋'
+          const button = document.createElement('div')
+          button.innerHTML = '<span class="tooltiptext" id="myTooltip">Copy to clipboard</span>📋'
           button.className = 'copy-button'
           button.addEventListener('click', () => {
-            navigator.clipboard.writeText(codes[pre].innerText)
+            try {
+            console.log('copying')
+            navigator.clipboard.writeText(codes[pre].innerText).then(() => {
+              const tooltip = codes[pre].getElementsByClassName("tooltiptext")[0]
+              tooltip.innerHTML = 'Copied!'
+              setTimeout(() => {
+                tooltip.innerHTML = 'Copy to clipboard'
+              }, 2000)
+            })
+            } catch (err) {
+              console.log('Failed to copy: ', err)
+            }
           })
           codes[pre].style.position = 'relative'
           codes[pre].appendChild(button)
