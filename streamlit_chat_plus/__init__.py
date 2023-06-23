@@ -8,7 +8,7 @@ except ImportError:
     from typing_extensions import Literal
 
 
-_RELEASE = False
+_RELEASE = True
 COMPONENT_NAME = "streamlit_chat_plus"
 
 # use the build instead of development if release is true
