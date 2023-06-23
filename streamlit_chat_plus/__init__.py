@@ -8,7 +8,7 @@ except ImportError:
     from typing_extensions import Literal
 
 
-_RELEASE = True
+_RELEASE = False
 COMPONENT_NAME = "streamlit_chat_plus"
 
 # use the build instead of development if release is true
@@ -97,12 +97,20 @@ markdown = """
 """
 
 links = """
-#### Links internal
-[Click Me](https:/google.com)
-https://google.com
-"""
 
-links_ext = """
+
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+
+<br>
+
+#### Links
+- [Click Me](https:/google.com)
+- https://google.com
+
+
 #### code sample
 
 ```python
@@ -112,6 +120,34 @@ with st.container():
     st.write("Hello world!")
     st.markdown('*Data*')
 ```
+
+#### Table
+| A | B | C | D | E | F | G | H | I | J |
+| - | - | - | - | - | - | - | - | - | - |
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10|
+| 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12| 13|
+| 7 | 8 | 9 | 10| 11| 12| 13| 14| 15| 16|
+
+#### Task List
+- [x] Task 1
+- [ ] Task 2
+- [ ] Task 3
+- [ ] Task 4
+
+#### Video
+<iframe width="500" height="340" src="https://www.youtube.com/embed/9Q6sLbz37gk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+#### Image
+![alt text](https://picsum.photos/320/240)
+
+#### Audio
+<audio controls>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+
+Visit [Streamlit](https://streamlit.io) for more info.
+<br>
 """
 
 
@@ -126,6 +162,6 @@ if not _RELEASE:
     message("Hello world", True)
     message(long_message)
     message(markdown, allow_html=True)
-    message(links_ext, allow_html=True)
     message(links, allow_html=True)
+ 
     st.text_input("Message:")
