@@ -21,6 +21,7 @@ message("Hello bot!", is_user=True)  # align's the message to the right
    
 ### Screenshot
 
-![chatbot-og](https://user-images.githubusercontent.com/90775147/210397700-5ab9e00d-a61b-4bc9-a34a-b5bd4454b084.png)
+![sample-page](https://github.com/osala-eng/st-chat-plus/assets/64925863/b61c75e9-1a3a-4388-9bf2-0bc534c8fb17)
+
 
 authors - [@yashppawar](https://github.com/yashppawar)  [@YashVardhan-AI](https://github.com/yashvardhan-ai)  [osala-eng](https://github.com/osala-eng)
