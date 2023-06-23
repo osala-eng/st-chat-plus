@@ -1,4 +1,56 @@
 pre code {
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+table , th, td{
+    border: 1px solid #73b1cc;
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+iframe {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+img {
+    border-radius: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    resize: contain;
+}
+
+audio {
+    margin-bottom: 20px;
+    border: 1px solid #73b1cc;
+    border-radius: 30px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+.copy-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    font-size: 1.5rem;
+    padding: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }

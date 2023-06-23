@@ -8,6 +8,7 @@ import React, { useEffect } from "react"
 import styled from '@emotion/styled'
 
 import Markdown from 'markdown-to-jsx'
+
 import hljs from "highlight.js"
 import "highlight.js/styles/base16/dracula.css"
 
@@ -20,10 +21,9 @@ const Message = styled.div({
 
   border: '1px solid transparent',
   borderRadius: '10px',
-  padding: '10px 14px',
+  padding: '10px 2rem',
   margin: '5px 20px',
-  maxWidth: '70%',
-  whiteSpace: 'pre-line'
+  maxWidth: '80%',
 })
 
 const Avatar = styled.img({
@@ -36,11 +36,10 @@ const Avatar = styled.img({
 
 const ChatMessage = styled.div({
   display: 'flex',
-  height: 'auto',
   margin: 0,
   width: '100%',
+  flex: '1',
 })
-
 
 const ChatUI: React.FC<ComponentProps> = (props) => {
   const { isUser, avatarStyle, seed, message, logo, allowHTML, extLinks } = props.args;
@@ -56,17 +55,51 @@ const ChatUI: React.FC<ComponentProps> = (props) => {
     background: theme?.secondaryBackgroundColor,
   }
 
+  const messageRef = React.useRef<HTMLDivElement>(null)
   const mdFormat = allowHTML || false
 
-  useEffect(() => {
-    Streamlit.setFrameHeight()
-  }, [])
-
+  // Highlight code blocks
   useEffect(() => {
     hljs.highlightAll()
-  })
+  });
 
-  return <ChatMessage style={chatStyle}>
+  // Watch for changes in the element and auto update the frame height
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      Streamlit.setFrameHeight()
+    })
+    if (messageRef.current) {
+      resizeObserver.observe(messageRef.current)
+    }
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [messageRef])
+
+  // Copy code to clipboard
+  useEffect(() => {
+    if (messageRef.current) {
+      const codes = messageRef.current.getElementsByTagName('code')
+        for(let pre = 0; pre < codes.length; pre++) {
+          const button = document.createElement('button')
+          button.innerHTML = '📋'
+          button.className = 'copy-button'
+          button.addEventListener('click', () => {
+            navigator.clipboard.writeText(codes[pre].innerText)
+          })
+          codes[pre].style.position = 'relative'
+          codes[pre].appendChild(button)
+        }
+    }    
+  }, [messageRef])
+    
+
+  return <ChatMessage style={chatStyle} ref={messageRef}
+    onLoad={() => {
+      Streamlit.setFrameHeight()
+      console.log('onLoad')
+    }}
+  >
     <Avatar src={avatarUrl} />
     <Message style={messageStyle}>
       {mdFormat ?
@@ -75,9 +108,7 @@ const ChatUI: React.FC<ComponentProps> = (props) => {
             overrides: extLinks ? {
               a: { component: 'a', props: { target: "_blank" } }
             } : undefined,
-
           }}
-          
         >{message}</Markdown> :
          message 
       }
