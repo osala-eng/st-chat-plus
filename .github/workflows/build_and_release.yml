@@ -34,7 +34,7 @@ jobs:
     - name: Build frontend
       working-directory: streamlit_chat_plus/frontend
       run: |
-        npm ci
+        npm ci --legacy-peer-deps
         npm run build
 
     # Install python dependencies and build
