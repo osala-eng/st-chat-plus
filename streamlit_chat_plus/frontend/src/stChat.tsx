@@ -86,8 +86,8 @@ const ChatUI: React.FC<ComponentProps> = (props) => {
           button.className = 'copy-button'
           button.addEventListener('click', () => {
             try {
-            console.log('copying')
-            navigator.clipboard.writeText(codes[pre].innerText).then(() => {
+            const code = codes[pre].getElementsByTagName('code')[0]
+            navigator.clipboard.writeText(code.innerText).then(() => {
               const tooltip = codes[pre].getElementsByClassName("tooltiptext")[0]
               tooltip.innerHTML = 'Copied!'
               setTimeout(() => {

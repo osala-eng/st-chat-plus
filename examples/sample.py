@@ -15,7 +15,7 @@ md = links = """
 <br>
 
 #### Links
-- [Click Me](https:/google.com)
+- [Click Me](https://google.com)
 - https://google.com
 
 
